@@ -4,21 +4,20 @@ import {
   ScrollView,
   TouchableOpacity,
   View,
-  Image,
   KeyboardAvoidingView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Svg, { Path } from "react-native-svg";
 import { useForm } from "react-hook-form";
 
 import FamilysideLogo from "@/assets/images/logo-white.png";
 import { AppleIcon, GoogleIcon } from "@/assets/icons/Media";
 import { Text } from "@/components/Themed";
 import StandardInputField from "@/components/form_fields/StandardInputField";
-import Button from "@/components/buttons/StandardButton";
 import StandardButton from "@/components/buttons/StandardButton";
 import { Colors } from "@/constants/Colors";
 import { router } from "expo-router";
+import StandardCheckbox from "@/components/form_fields/StandardCheckbox";
+import { Image } from "expo-image";
 
 export type LoginFormValues = {
   emailOrPhone: string;
@@ -55,14 +54,14 @@ export default function LoginScreen({
     },
   });
 
-  const LOGO_WIDTH = 196;
-  const LOGO_HEIGHT = 42;
   const rememberMe = watch("rememberMe");
-
+  
   const onSubmit = (values: LoginFormValues) => {
     onLogin(values);
   };
-
+  
+  const LOGO_WIDTH = 196;
+  const LOGO_HEIGHT = 42;
   return (
     <SafeAreaView className="flex-1 bg-[#F0436F]" edges={["top"]}>
       <KeyboardAvoidingView
@@ -79,8 +78,8 @@ export default function LoginScreen({
             <View className="flex-row items-center gap-2 mb-8">
               <Image
                 source={FamilysideLogo}
-                className={`w-[${LOGO_WIDTH}px] h-[${LOGO_HEIGHT}px]`}
-                resizeMode="contain"
+                style={{ width: LOGO_WIDTH, height: LOGO_HEIGHT }}
+                contentFit="contain"
               />
             </View>
 
@@ -116,30 +115,21 @@ export default function LoginScreen({
                 onPress={() => setValue("rememberMe", !rememberMe)}
                 activeOpacity={0.7}
               >
-                <View
-                  className={`w-4 h-4 rounded border ${
-                    rememberMe
-                      ? "bg-[#F0436F] border-[#F0436F]"
-                      : "bg-white border-[#ccc]"
-                  } items-center justify-center`}
-                >
-                  {rememberMe ? (
-                    <Svg width={10} height={10} viewBox="0 0 12 12" fill="none">
-                      <Path
-                        d="M2 6l3 3 5-5"
-                        stroke="white"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </Svg>
-                  ) : null}
-                </View>
+                <StandardCheckbox
+                  value={rememberMe}
+                  onValueChange={(e, value) => {
+                    e.stopPropagation();
+                    setValue("rememberMe", value)
+                  }}
+                />
                 <Text className="text-sm" style={{ color: "#555" }}>
                   Remember me
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push('/screens/auth/forgotPassword')} activeOpacity={0.7}>
+              <TouchableOpacity
+                onPress={() => router.push("/screens/auth/forgotPassword")}
+                activeOpacity={0.7}
+              >
                 <Text
                   className="text-sm font-medium"
                   style={{ color: Colors.common.BRAND }}
