@@ -23,4 +23,11 @@ export const Colors = {
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
   },
+  common: {
+    BRAND: '#EF477F',
+    ERROR: '#F0436F',
+    SUCCESS: '#4CAF50',
+    WARNING: '#FFC107',
+    INFO: '#2196F3',
+  }
 };
