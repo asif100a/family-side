@@ -17,8 +17,8 @@ import { Text } from "@/components/Themed";
 import StandardInputField from "@/components/form_fields/StandardInputField";
 import Button from "@/components/buttons/StandardButton";
 import StandardButton from "@/components/buttons/StandardButton";
-
-const BRAND = "#F0436F";
+import { Colors } from "@/constants/Colors";
+import { router } from "expo-router";
 
 export type LoginFormValues = {
   emailOrPhone: string;
@@ -110,7 +110,7 @@ export default function LoginScreen({
               placeholder="Enter your password"
             />
 
-            <View className="flex-row items-center justify-between mb-7">
+            <View className="flex-row items-center justify-between mb-6">
               <TouchableOpacity
                 className="flex-row items-center gap-2"
                 onPress={() => setValue("rememberMe", !rememberMe)}
@@ -135,10 +135,15 @@ export default function LoginScreen({
                     </Svg>
                   ) : null}
                 </View>
-                <Text className="text-sm text-[#555]">Remember me</Text>
+                <Text className="text-sm" style={{ color: "#555" }}>
+                  Remember me
+                </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={onForgotPassword} activeOpacity={0.7}>
-                <Text className="text-sm text-[#F0436F] font-medium">
+              <TouchableOpacity onPress={() => router.push('/screens/auth/forgotPassword')} activeOpacity={0.7}>
+                <Text
+                  className="text-sm font-medium"
+                  style={{ color: Colors.common.BRAND }}
+                >
                   Forget password
                 </Text>
               </TouchableOpacity>
@@ -146,7 +151,7 @@ export default function LoginScreen({
 
             <StandardButton text="Login" onPress={handleSubmit(onSubmit)} />
 
-            <View className="flex-row items-center gap-3 mb-6">
+            <View className="flex-row items-center gap-3 mb-6 pt-6">
               <View className="flex-1 h-px bg-[#e0e0e0]" />
               <View className="w-8 h-8 rounded-full border border-dashed border-[#F0436F]/50 items-center justify-center">
                 <Text className="text-xs text-[#F0436F]/70 font-medium">
@@ -163,7 +168,10 @@ export default function LoginScreen({
                 activeOpacity={0.8}
               >
                 <GoogleIcon />
-                <Text className="text-sm font-semibold text-[#333]">
+                <Text
+                  className="text-sm font-semibold"
+                  style={{ color: "#333" }}
+                >
                   Google
                 </Text>
               </TouchableOpacity>
@@ -173,16 +181,27 @@ export default function LoginScreen({
                 activeOpacity={0.8}
               >
                 <AppleIcon />
-                <Text className="text-sm font-semibold text-[#333]">Apple</Text>
+                <Text
+                  className="text-sm font-semibold"
+                  style={{ color: "#333" }}
+                >
+                  Apple
+                </Text>
               </TouchableOpacity>
             </View>
 
             <View className="flex-row justify-center">
-              <Text className="text-sm text-[#888]">
+              <Text className="text-sm" style={{ color: "#555" }}>
                 Don't have an account?{" "}
               </Text>
-              <TouchableOpacity onPress={onSignUp} activeOpacity={0.7}>
-                <Text className="text-sm text-[#222] font-bold underline">
+              <TouchableOpacity
+                onPress={() => router.push("/screens/auth/SignUp")}
+                activeOpacity={0.7}
+              >
+                <Text
+                  className="text-sm font-bold underline"
+                  style={{ color: "#222" }}
+                >
                   Sign up
                 </Text>
               </TouchableOpacity>

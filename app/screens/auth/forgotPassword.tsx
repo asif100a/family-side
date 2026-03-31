@@ -10,6 +10,11 @@ import {
 import { Text } from "@/components/Themed";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Svg, { Path } from "react-native-svg";
+import BackButton from "@/components/buttons/BackButton";
+import StandardInputField from "@/components/form_fields/StandardInputField";
+import { useForm } from "react-hook-form";
+import StandardButton from "@/components/buttons/StandardButton";
+import { router } from "expo-router";
 
 const BRAND = "#F0436F";
 
@@ -36,7 +41,16 @@ export default function ForgotPasswordScreen({
   onBack = () => {},
   onContinue = () => {},
 }: ForgotPasswordScreenProps) {
-  const [email, setEmail] = useState("");
+  const { handleSubmit, control } = useForm({
+    defaultValues: {
+      email: "",
+    },
+  });
+
+  const handleContinue = (data: { email: string }) => {
+    onContinue(data.email);
+    router.push("/screens/auth/verifyCode");
+  }
 
   return (
     <SafeAreaView className="flex-1 bg-[#F0436F]" edges={["top"]}>
@@ -53,14 +67,7 @@ export default function ForgotPasswordScreen({
           {/* Pink header */}
           <View className="px-6 pt-4 pb-10">
             {/* Back button */}
-            <TouchableOpacity
-              className="flex-row items-center gap-1 mb-8"
-              onPress={onBack}
-              activeOpacity={0.7}
-            >
-              <ChevronLeftIcon />
-              <Text className="text-white text-base font-medium">Back</Text>
-            </TouchableOpacity>
+            <BackButton className="mb-4" />
 
             <Text className="text-white text-[28px] font-bold mb-2 leading-9">
               Forgot password
@@ -72,38 +79,16 @@ export default function ForgotPasswordScreen({
 
           {/* White card */}
           <View className="flex-1 bg-[#f5f5f5] rounded-t-[28px] px-6 pt-8 pb-10">
-            <Text className="text-[#333] text-sm font-semibold mb-2">
-              Email
-            </Text>
-            <View className="bg-white rounded-xl border border-[#e8e8e8] px-4 h-[52px] justify-center mb-8">
-              <TextInput
-                className="text-sm text-[#222] flex-1"
-                placeholder="Enter your email"
-                placeholderTextColor="#bbb"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize="none"
-              />
-            </View>
+            <StandardInputField
+              control={control}
+              id="email"
+              label="Email"
+              type="email"
+              placeholder="Enter your email"
+            />
 
             {/* Continue button */}
-            <TouchableOpacity
-              className="h-14 rounded-2xl bg-[#F0436F] items-center justify-center"
-              style={{
-                shadowColor: BRAND,
-                shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 0.3,
-                shadowRadius: 12,
-                elevation: 6,
-              }}
-              onPress={() => onContinue(email)}
-              activeOpacity={0.85}
-            >
-              <Text className="text-white text-base font-bold tracking-wide">
-                Continue
-              </Text>
-            </TouchableOpacity>
+            <StandardButton text="Continue" onPress={handleSubmit(handleContinue)} />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

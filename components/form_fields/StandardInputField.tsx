@@ -21,6 +21,7 @@ type StandardInputFieldProps<T extends FieldValues> = {
   control: Control<T>;
   readOnly?: boolean;
   placeholder?: string;
+  required?: boolean;
 };
 
 export default function StandardInputField<T extends FieldValues>({
@@ -30,6 +31,7 @@ export default function StandardInputField<T extends FieldValues>({
   control,
   readOnly = false,
   placeholder,
+  required = true,
 }: StandardInputFieldProps<T>) {
   const resolvedPlaceholder =
     placeholder ??
@@ -43,7 +45,7 @@ export default function StandardInputField<T extends FieldValues>({
     <Controller
       control={control}
       name={id}
-      rules={{ required: `${label} is required.` }}
+      rules={{ required: required ? `${label} is required.` : undefined }}
       render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
         <FormControl isInvalid={Boolean(error)} className="mb-5">
           <FormControlLabel className="mb-2">
@@ -57,7 +59,7 @@ export default function StandardInputField<T extends FieldValues>({
           <Input
             variant="outline"
             size="xl"
-            className="h-[52px] rounded-xl border border-[#e8e8e8] bg-white"
+            className="h-[52px] rounded-lg border border-[#e8e8e8] bg-white"
           >
             <InputField
               value={value == null ? "" : String(value)}
