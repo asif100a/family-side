@@ -57,22 +57,6 @@ const FakeStatusBar: React.FC<StatusBarProps> = () => (
   </View>
 );
 
-interface NavHeaderProps {
-  title: string;
-  onBack: () => void;
-}
-const NavHeader: React.FC<NavHeaderProps> = ({ title, onBack }) => (
-  <TouchableOpacity
-    onPress={onBack}
-    className="flex-row items-center gap-x-2 py-3 mb-1"
-    activeOpacity={0.7}
-  >
-    <BackArrow />
-    <Text className="text-gray-900 text-xl font-bold tracking-tight">
-      {title}
-    </Text>
-  </TouchableOpacity>
-);
 
 interface PrimaryButtonProps {
   label: string;
@@ -97,99 +81,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({ label, onPress }) => (
   </TouchableOpacity>
 );
 
-interface OptionCardProps {
-  icon: string;
-  title: string;
-  description?: string;
-  selected: boolean;
-  onPress: () => void;
-}
-const OptionCard: React.FC<OptionCardProps> = ({
-  icon,
-  title,
-  description,
-  selected,
-  onPress,
-}) => (
-  <TouchableOpacity
-    onPress={onPress}
-    activeOpacity={0.8}
-    className={`flex-row items-center gap-x-3 px-4 py-3 rounded-2xl border mb-3 ${
-      selected
-        ? "border-pink-400 bg-pink-50"
-        : "border-gray-100 bg-white"
-    }`}
-  >
-    {/* Icon bubble */}
-    <View
-      className={`w-11 h-11 rounded-full items-center justify-center ${
-        selected ? "bg-pink-100" : "bg-gray-100"
-      }`}
-    >
-      <Text className="text-xl">{icon}</Text>
-    </View>
 
-    {/* Text */}
-    <View className="flex-1">
-      <Text className="text-gray-900 text-sm font-semibold">{title}</Text>
-      {description ? (
-        <Text className="text-gray-400 text-xs leading-relaxed mt-0.5">
-          {description}
-        </Text>
-      ) : null}
-    </View>
-
-    {selected && <CheckIcon />}
-  </TouchableOpacity>
-);
-
-interface LocationInputProps {
-  value: string;
-  onChange: (val: string) => void;
-}
-const LocationInput: React.FC<LocationInputProps> = ({ value, onChange }) => (
-  <View className="mb-4">
-    <Text className="text-gray-500 text-xs font-medium mb-2">Location</Text>
-    <View className="flex-row gap-x-2 items-center">
-      <TextInput
-        value={value}
-        onChangeText={onChange}
-        placeholder="Enter your location"
-        placeholderTextColor="#B0B0C3"
-        className="flex-1 border border-gray-100 rounded-xl px-4 py-3 text-gray-800 text-sm bg-white"
-      />
-      <TouchableOpacity className="w-11 h-11 rounded-xl border border-gray-100 bg-pink-50 items-center justify-center">
-        <PinIcon />
-      </TouchableOpacity>
-    </View>
-  </View>
-);
-
-interface InfoBoxProps {
-  title: string;
-  children: React.ReactNode;
-}
-const InfoBox: React.FC<InfoBoxProps> = ({ title, children }) => (
-  <View className="border border-gray-100 rounded-2xl p-4 mb-3">
-    <Text className="text-gray-800 text-sm font-semibold mb-3">{title}</Text>
-    {children}
-  </View>
-);
-
-interface OutlineButtonProps {
-  label: string;
-  onPress: () => void;
-}
-const OutlineButton: React.FC<OutlineButtonProps> = ({ label, onPress }) => (
-  <TouchableOpacity
-    onPress={onPress}
-    activeOpacity={0.7}
-    className="flex-row items-center justify-center gap-x-2 border border-gray-100 rounded-full py-3 mt-2"
-  >
-    <PlusIcon />
-    <Text className="text-gray-600 text-sm font-medium">{label}</Text>
-  </TouchableOpacity>
-);
 
 
 

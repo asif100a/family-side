@@ -1,5 +1,14 @@
 // ─── Screen 2 & 3: Tell Us About Your Child ───────────────────────────────────
 
+import StandardButton from "@/components/buttons/StandardButton";
+import LocationInput from "@/components/helper_components/account/LocationInput";
+import NavHeader from "@/components/helper_components/account/NavHeader";
+import OptionCard from "@/components/helper_components/account/OptionCard";
+import { Text, View } from "@/components/Themed";
+import { useState } from "react";
+import { ScrollView, TextInput, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 interface ChildInfoScreenProps {
   onContinue: () => void;
   onBack: () => void;
@@ -13,12 +22,47 @@ const ChildInfoScreen: React.FC<ChildInfoScreenProps> = ({
 
   const toggleChildType = (type: string) => {
     setChildType((prev) =>
-      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type],
     );
   };
 
   const isExpecting = childType.includes("Expecting");
   const isKids = childType.includes("Kids");
+
+  interface InfoBoxProps {
+    title: string;
+    children: React.ReactNode;
+  }
+
+  const PlusIcon = () => (
+    <Text className="text-pink-500 text-base font-semibold">＋</Text>
+  );
+
+  const CalendarIcon = () => (
+    <Text className="text-gray-400 text-base">📅</Text>
+  );
+
+  const InfoBox: React.FC<InfoBoxProps> = ({ title, children }) => (
+    <View className="border border-gray-100 rounded-2xl p-4 mb-3">
+      <Text className="text-gray-800 text-sm font-semibold mb-3">{title}</Text>
+      {children}
+    </View>
+  );
+
+  interface OutlineButtonProps {
+    label: string;
+    onPress: () => void;
+  }
+  const OutlineButton: React.FC<OutlineButtonProps> = ({ label, onPress }) => (
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.7}
+      className="flex-row items-center justify-center gap-x-2 border border-gray-100 rounded-full py-3 mt-2"
+    >
+      <PlusIcon />
+      <Text className="text-gray-600 text-sm font-medium">{label}</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <SafeAreaView className="flex-1 bg-gray-50">
@@ -27,7 +71,6 @@ const ChildInfoScreen: React.FC<ChildInfoScreenProps> = ({
         contentContainerStyle={{ paddingBottom: 32 }}
         showsVerticalScrollIndicator={false}
       >
-        <FakeStatusBar />
         <NavHeader title="Tell us about your Child" onBack={onBack} />
 
         <LocationInput value={location} onChange={setLocation} />
@@ -105,7 +148,7 @@ const ChildInfoScreen: React.FC<ChildInfoScreenProps> = ({
           </InfoBox>
         )}
 
-        <PrimaryButton label="Continue" onPress={onContinue} />
+        <StandardButton text="Continue" onPress={onContinue} />
       </ScrollView>
     </SafeAreaView>
   );

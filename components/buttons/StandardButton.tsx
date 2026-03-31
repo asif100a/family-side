@@ -30,6 +30,7 @@ export default function StandardButton({
       onPress={onPress ? onPress : () => {}}
       activeOpacity={0.7}
       className={`w-full h-14 rounded-md justify-center items-center bg-[${Colors.common.BRAND}] ${className ?? ""}`}
+      style={{ backgroundColor: Colors.common.BRAND }}
       disabled={loading || disabled}
     >
       {loading ? (

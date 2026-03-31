@@ -1,5 +1,12 @@
 // ─── Screen 4: Interests ─────────────────────────────────────────────────────
 
+import StandardButton from "@/components/buttons/StandardButton";
+import NavHeader from "@/components/helper_components/account/NavHeader";
+import { Text, View } from "@/components/Themed";
+import { useState } from "react";
+import { ScrollView, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 interface InterestsScreenProps {
   onContinue: () => void;
   onBack: () => void;
@@ -34,7 +41,6 @@ const InterestsScreen: React.FC<InterestsScreenProps> = ({
         contentContainerStyle={{ paddingBottom: 32 }}
         showsVerticalScrollIndicator={false}
       >
-        <FakeStatusBar />
         <NavHeader title="Interests" onBack={onBack} />
 
         <Text className="text-gray-700 text-sm font-medium mb-4">
@@ -68,7 +74,7 @@ const InterestsScreen: React.FC<InterestsScreenProps> = ({
         </View>
 
         <View className="mt-8">
-          <PrimaryButton label="Continue" onPress={onContinue} />
+          <StandardButton text="Continue" onPress={onContinue} />
         </View>
       </ScrollView>
     </SafeAreaView>

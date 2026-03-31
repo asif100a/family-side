@@ -58,6 +58,7 @@ export default function LoginScreen({
   
   const onSubmit = (values: LoginFormValues) => {
     onLogin(values);
+    router.push('/screens/account/parentTypeScreen');
   };
   
   const LOGO_WIDTH = 196;

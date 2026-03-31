@@ -1,64 +1,95 @@
-// ─── Screen 1: Parent Type ────────────────────────────────────────────────────
+import StandardButton from "@/components/buttons/StandardButton";
+import NavHeader from "@/components/helper_components/account/NavHeader";
+import OptionCard from "@/components/helper_components/account/OptionCard";
+import { Text, View } from "@/components/Themed";
+import { useState } from "react";
+import { ScrollView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface ParentTypeScreenProps {
   onContinue: () => void;
 }
+
 const ParentTypeScreen: React.FC<ParentTypeScreenProps> = ({ onContinue }) => {
   const [selected, setSelected] = useState<string>("Mother");
 
   const options = [
     {
       key: "Mother",
-      icon: "👩",
+      icon: "M",
       title: "Mother",
-      description:
-        "A parent who is responsible for managing and finding services, activities, and support for their child.",
+      description: "Managing daily care, routines, and decisions for your child.",
     },
     {
       key: "Father",
-      icon: "👨",
+      icon: "F",
       title: "Father",
-      description:
-        "A parent or legal guardian who cares for the child and makes important decisions regarding their well-being.",
+      description: "Supporting your child's needs, plans, and family decisions.",
     },
     {
       key: "Other",
-      icon: "👴",
-      title: "Other",
-      description:
-        "A caregiver (such as a grandparent, aunt, uncle, or guardian) who supports and participates in the child's care and activities.",
+      icon: "CG",
+      title: "Caregiver",
+      description: "A guardian or family member actively involved in your child's care.",
     },
   ];
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-[#FFF8FB]">
       <ScrollView
         className="flex-1 px-5"
-        contentContainerStyle={{ paddingBottom: 24 }}
+        contentContainerStyle={{ paddingBottom: 32 }}
         showsVerticalScrollIndicator={false}
       >
-        <FakeStatusBar />
-        <NavHeader title="Parent Type" onBack={() => {}} />
+        <NavHeader
+          title="Who will be using FamilySide?"
+          subtitle="Choose the role that best matches how you support your child. You can update this later."
+          eyebrow="Step 1 of 4"
+          showBackButton={false}
+        />
 
-        <Text className="text-gray-500 text-sm font-medium mb-4">
-          Who are you?
-        </Text>
+        <View
+          className="mb-6 mt-2 rounded-[32px] border border-rose-100 bg-white px-5 py-5"
+          style={{
+            shadowColor: "#F472B6",
+            shadowOffset: { width: 0, height: 14 },
+            shadowOpacity: 0.08,
+            shadowRadius: 28,
+            elevation: 2,
+          }}
+        >
+          <Text className="text-xs font-semibold uppercase tracking-[1.8px] text-pink-500">
+            Select one option
+          </Text>
+          <Text className="mt-3 text-sm leading-6 text-gray-600">
+            This helps us personalize recommendations, resources, and language
+            throughout your setup.
+          </Text>
+        </View>
 
-        {options.map((opt) => (
-          <OptionCard
-            key={opt.key}
-            icon={opt.icon}
-            title={opt.title}
-            description={opt.description}
-            selected={selected === opt.key}
-            onPress={() => setSelected(opt.key)}
-          />
-        ))}
+        <View className="mb-4">
+          {options.map((opt) => (
+            <OptionCard
+              key={opt.key}
+              icon={opt.icon}
+              title={opt.title}
+              description={opt.description}
+              selected={selected === opt.key}
+              onPress={() => setSelected(opt.key)}
+            />
+          ))}
+        </View>
 
-        <View className="mt-4">
-          <PrimaryButton label="Continue" onPress={onContinue} />
+        <View className="rounded-[28px] bg-white px-4 py-4">
+          <Text className="mb-3 text-center text-sm leading-6 text-gray-500">
+            You&apos;re almost set. We&apos;ll tailor the next steps based on
+            your role.
+          </Text>
+          <StandardButton text="Continue" onPress={onContinue} />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
+
+export default ParentTypeScreen;

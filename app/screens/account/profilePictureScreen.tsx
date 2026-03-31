@@ -1,7 +1,11 @@
 // ─── Screen 5: Profile Picture ───────────────────────────────────────────────
 
-import BackButton from "@/components/buttons/BackButton";
+import StandardButton from "@/components/buttons/StandardButton";
+import NavHeader from "@/components/helper_components/account/NavHeader";
+import { Text } from "@/components/Themed";
+import { EditIcon } from "@/components/ui/icon";
 import { View } from "@/components/ui/view";
+import { TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface ProfilePictureScreenProps {
@@ -9,11 +13,14 @@ interface ProfilePictureScreenProps {
   onSkip: () => void;
   onBack: () => void;
 }
-const ProfilePictureScreen: React.FC<ProfilePictureScreenProps> = () => {
+const ProfilePictureScreen: React.FC<ProfilePictureScreenProps> = ({
+  onAdd,
+  onSkip,
+  onBack,
+}) => {
   return (
     <SafeAreaView className="flex-1 bg-white">
       <View className="flex-1 px-5">
-        <BackButton />
         <NavHeader title="Profile picture" onBack={onBack} />
 
         <Text className="text-gray-400 text-sm mb-8">
@@ -52,7 +59,7 @@ const ProfilePictureScreen: React.FC<ProfilePictureScreenProps> = () => {
 
         {/* Buttons */}
         <View className="pb-6">
-          <PrimaryButton label="Add Picture" onPress={onAdd} />
+          <StandardButton text="Add Picture" onPress={onAdd} />
           <TouchableOpacity onPress={onSkip} className="mt-4 items-center">
             <Text className="text-pink-500 text-sm font-semibold">Skip</Text>
           </TouchableOpacity>

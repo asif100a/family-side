@@ -83,6 +83,10 @@ export default function SignUp({
   const onSubmit = () => {
     if (canSubmit) {
       onContinue(password);
+      router.push({
+        pathname: "/screens/auth/verifyCode",
+        params: { email: watch("email") },
+      });
     }
   };
 
@@ -223,7 +227,11 @@ export default function SignUp({
             </View>
 
             {/* Continue button */}
-            <StandardButton text="Sign Up" onPress={handleSubmit(onSubmit)} className="mb-6" />
+            <StandardButton
+              text="Sign Up"
+              onPress={handleSubmit(onSubmit)}
+              className="mb-6"
+            />
 
             <View className="flex-row justify-center">
               <Text className="text-sm" style={{ color: "#555" }}>
