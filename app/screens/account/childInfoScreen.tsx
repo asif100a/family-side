@@ -153,3 +153,5 @@ const ChildInfoScreen: React.FC<ChildInfoScreenProps> = ({
     </SafeAreaView>
   );
 };
+
+export default ChildInfoScreen;

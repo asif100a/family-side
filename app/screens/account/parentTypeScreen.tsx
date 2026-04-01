@@ -2,6 +2,7 @@ import StandardButton from "@/components/buttons/StandardButton";
 import NavHeader from "@/components/helper_components/account/NavHeader";
 import OptionCard from "@/components/helper_components/account/OptionCard";
 import { Text, View } from "@/components/Themed";
+import { router } from "expo-router";
 import { useState } from "react";
 import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -10,7 +11,7 @@ interface ParentTypeScreenProps {
   onContinue: () => void;
 }
 
-const ParentTypeScreen: React.FC<ParentTypeScreenProps> = ({ onContinue }) => {
+const ParentTypeScreen: React.FC<ParentTypeScreenProps> = () => {
   const [selected, setSelected] = useState<string>("Mother");
 
   const options = [
@@ -34,8 +35,13 @@ const ParentTypeScreen: React.FC<ParentTypeScreenProps> = ({ onContinue }) => {
     },
   ];
 
+  const handleContinue = () => {
+    // You can also pass the selected role to the next screen if needed
+    // router.push("/screens/");
+  }
+
   return (
-    <SafeAreaView className="flex-1 bg-[#FFF8FB]">
+    <SafeAreaView className="flex-1 bg-white">
       <ScrollView
         className="flex-1 px-5"
         contentContainerStyle={{ paddingBottom: 32 }}
@@ -85,7 +91,7 @@ const ParentTypeScreen: React.FC<ParentTypeScreenProps> = ({ onContinue }) => {
             You&apos;re almost set. We&apos;ll tailor the next steps based on
             your role.
           </Text>
-          <StandardButton text="Continue" onPress={onContinue} />
+          <StandardButton text="Continue" onPress={handleContinue} />
         </View>
       </ScrollView>
     </SafeAreaView>

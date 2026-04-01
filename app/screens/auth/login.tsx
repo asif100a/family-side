@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Platform,
   ScrollView,
@@ -25,21 +25,7 @@ export type LoginFormValues = {
   rememberMe: boolean;
 };
 
-interface LoginScreenProps {
-  onLogin?: (values: LoginFormValues) => void;
-  onForgotPassword?: () => void;
-  onSignUp?: () => void;
-  onGoogleLogin?: () => void;
-  onAppleLogin?: () => void;
-}
-
-export default function LoginScreen({
-  onLogin = () => {},
-  onForgotPassword = () => {},
-  onSignUp = () => {},
-  onGoogleLogin = () => {},
-  onAppleLogin = () => {},
-}: LoginScreenProps) {
+export default function LoginScreen() {
   const {
     control,
     handleSubmit,
@@ -55,12 +41,18 @@ export default function LoginScreen({
   });
 
   const rememberMe = watch("rememberMe");
-  
+
   const onSubmit = (values: LoginFormValues) => {
-    onLogin(values);
-    router.push('/screens/account/parentTypeScreen');
+    router.push("/screens/account/parentTypeScreen");
   };
-  
+
+  const handleGoogleLogin = () => {
+    // Implement Google login flow here
+  };
+  const handleAppleLogin = () => {
+    // Implement Apple login flow here
+  };
+
   const LOGO_WIDTH = 196;
   const LOGO_HEIGHT = 42;
   return (
@@ -120,7 +112,7 @@ export default function LoginScreen({
                   value={rememberMe}
                   onValueChange={(e, value) => {
                     e.stopPropagation();
-                    setValue("rememberMe", value)
+                    setValue("rememberMe", value);
                   }}
                 />
                 <Text className="text-sm" style={{ color: "#555" }}>
@@ -155,7 +147,7 @@ export default function LoginScreen({
             <View className="flex-row gap-3 mb-8">
               <TouchableOpacity
                 className="flex-1 h-[52px] rounded-xl border border-[#e8e8e8] bg-white flex-row items-center justify-center gap-2"
-                onPress={onGoogleLogin}
+                onPress={handleGoogleLogin}
                 activeOpacity={0.8}
               >
                 <GoogleIcon />
@@ -168,7 +160,7 @@ export default function LoginScreen({
               </TouchableOpacity>
               <TouchableOpacity
                 className="flex-1 h-[52px] rounded-xl border border-[#e8e8e8] bg-white flex-row items-center justify-center gap-2"
-                onPress={onAppleLogin}
+                onPress={handleAppleLogin}
                 activeOpacity={0.8}
               >
                 <AppleIcon />

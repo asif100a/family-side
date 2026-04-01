@@ -68,3 +68,5 @@ const ProfilePictureScreen: React.FC<ProfilePictureScreenProps> = ({
     </SafeAreaView>
   );
 };
+
+export default ProfilePictureScreen;

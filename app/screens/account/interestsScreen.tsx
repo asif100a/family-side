@@ -80,3 +80,5 @@ const InterestsScreen: React.FC<InterestsScreenProps> = ({
     </SafeAreaView>
   );
 };
+
+export default InterestsScreen;
